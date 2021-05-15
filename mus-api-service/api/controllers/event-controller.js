@@ -51,44 +51,44 @@ var schema = {
         "type": "string",
         "faker": "date.future"
       },
-      "band": {
-        "type": "string",
-        "faker": "company.companyName"
-      },
       "image": {
         "type": "string",
-        "faker": "image.imageUrl"
+        "faker": "images.abstract"
       },
       "time": {
         "type": "string",
         "faker": "time.recent"
       },
-      "place": {
+      "theme": {
         "type": "string",
-        "faker": "address.streetAddress"
+        "faker": "lorem.word"
       },
-      "songs": {
-        "type": "array",
-        "minItems": 1,
-        "maxItems": 3,
-        "items": {
-          "type": "object",
-          "required": ["id"],
-          "properties": {
-            "id": {
-              "type": "string",
-              "faker": "random.number"
-            },
-            "title": {
-              "type": "string",
-              "faker": "music.genre"
-            }
-          },
-        },
-      }
+      "cost": {
+        "type": "string",
+        "faker": "datatype.number"
+      },
+      "name": {
+        "type": "string",
+        "faker": "lorem.sentence"
+      },
+      "text": {
+        "type": "string",
+        "faker": "lorem.text"
+      },
     }
   }
 }
+
+router.get('/',(req, res) => {
+
+  jsf.resolve(schema).then(sample => {
+    logger.debug(util.inspect(sample,
+      {showHidden: false, depth: null}));
+  });
+
+});
+
+module.exports = router;
 /*
   Functions in a127 controllers used for operations should take two parameters:
 
