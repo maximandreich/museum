@@ -1,77 +1,49 @@
-const express = require('express');
-const router = express.Router();
-const faker = require('faker');
-//const chance = new require('chance').Chance();
-const jsf = require('json-schema-faker');
-jsf.extend('chance', () => chance);
-jsf.extend('faker', () => faker);
+import React from 'react';
+import * as Api from 'typescript-fetch-api'
+import { withRouter } from "react-router";
+import moment from 'moment'
+import Moment from 'react-moment';
 
 
-var schema = {
-  "type": "array",
-  "minItems": 1,
-  "maxItems": 10,
-  "items":{
-    type:'object',
-    properties: {
-           number: {
-              type: 'string',
-              faker: 'random.number'
-           },
-           name: {
-              type: 'string',
-              faker: 'commerce.productName'
-           },
-           ntype: {
-              type: 'string',
-              faker: 'database.type'
-           },
-           image: {
-              type: 'string',
-              faker: 'image.business'
-           },
-           color: {
-              type: 'string',
-              faker: 'commerce.color'
-           },
-           material: {
-              type: 'string',
-              faker: 'commerce.productMaterial'
-           },
-           description: {
-              type: 'string',
-              faker: 'commerce.productDescription'
-           },
-           shop1: {
-              type: 'string',
-              faker: 'company.companyName'
-           },
-           shop2: {
-              type: 'string',
-              faker: 'company.companyName'
-           },
-           shop3: {
-              type: 'string',
-              faker: 'company.companyName'
-           },
-           price: {
-            type:'string',
-            faker: 'commerce.price'
-           }
-    },
-     required: ['number', 'name', 'ntype', 'image', 'color', 'material', 'shop1', 'shop2', 'shop3', 'description', 'price']
-  }
-};
+const api = new Api.DefaultApi()
+
+class CurrentEventsProgress extends React.Component {
+
+    constructor(props) {
+        super(props);
+        const id =  this.props.match?.params.id || moment().format('YYYY-MM-DD');
+        console.log(id);
+
+        
+
+        this.state = { 
+            events: [{id:'xyz1', date: "2021-04-21", band: "Какора", image: "", time: "19:00", place:"Cultural Hub Ok16"}],
+            date: id 
+        };
+
+        this.handleReload = this.handleReload.bind(this);
+        this.handleReload();
+    }
 
 
-/* GET users listing. */
-router.get('/', (req, res) => {
-
-  jsf.resolve(schema).then(sample => {
-    res.render('comment', {comments:sample});
-  });
-});
+    async handleReload(event) {
+        //const response = await api.events({ date: '2021-03-25'/*this.state.targetDate*/ });
+        //this.setState({ events: response });
+    }
 
 
+    render() {
+        return <div>
+            {/*<button onClick={this.handleReload}>Reload</button> */}
+            <h2>Day scheduler</h2>
+            <h3>Upcoming events on <Moment format="YYYY/MM/DD">{this.state.date}</Moment> </h3>
+            <ul>
+               {this.state.events.map(
+                   (event) => 
+                        <li key={event.id}>{event.time}:  {event.band} is performing in {event.place}</li>)}
+            </ul>
+        </div>
+    }
+}
 
-module.exports = router;
+export default withRouter(CurrentEventsProgress);
