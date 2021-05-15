@@ -87,7 +87,7 @@ var schema = {
 function getEvents(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var date = req.swagger.params.date.value || '2020-03-01';
-  var title = util.format('Hey %s', date);
+  var name = util.format('Hey %s', date);
 
   // this sends back a JSON response which is a single string
   jsf.resolve(schema).then(sample => res.json(sample));
@@ -95,7 +95,7 @@ function getEvents(req, res) {
 
 function getEvent(req, res) {
   var date = req.swagger.params.date.value || '2020-03-01';
-  var title = util.format('Hey %s', date);
+  var name = util.format('Hey %s', date);
   res.json([
     {
       "id": '' + faker.random.number(),
