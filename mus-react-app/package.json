@@ -7,13 +7,14 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "moment": "^2.29.1",
+    "openapi-generator": "^0.1.39",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "typescript": "^4.1.5",
-    "typescript-fetch-api": "^0.0.0",
+    "typescript-fetch-api": "file:gen/api",
     "typescript-fsa": "^3.0.0",
     "typescript-fsa-reducers": "^1.2.2",
     "web-vitals": "^1.0.1"
@@ -23,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "api": "rm -rf gen/api && openapi-generator generate --input-spec ../event-api-service/gen/openapi.json --generator-name typescript-fetch --output gen/api --config api.json && cd gen/api && npm install"
+    "api": "rm -rf gen/api && openapi-generator-cli generate --input-spec ../mus-api-service/gen/openapi.json --generator-name typescript-fetch --output gen/api --config api.json && cd gen/api && npm install"
   },
   "eslintConfig": {
     "extends": [
