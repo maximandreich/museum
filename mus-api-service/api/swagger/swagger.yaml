@@ -45,7 +45,7 @@ paths:
     # binds a127 app logic to a route
     x-swagger-router-controller: event-controller
     get:
-      description: Returns info on certain event 
+      description: Returns info about certain event 
       # used as the method name of the controller
       operationId: event
       parameters:

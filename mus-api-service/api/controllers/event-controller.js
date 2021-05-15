@@ -36,11 +36,11 @@ module.exports = {
 var schema = {
   "type": "array",
   "minItems": 1,
-  "maxItems": 7,
+  "maxItems": 30,
   "items": {
     "type": "object",
     "required": [
-      "id", "place", "time", "image", "band", "date"
+      "id", "date", "image", "time", "theme", "name", "cost", "text"
     ],
     "properties": {
       "id": {
@@ -53,7 +53,7 @@ var schema = {
       },
       "image": {
         "type": "string",
-        "faker": "images.abstract"
+        "faker": "image.abstract"
       },
       "time": {
         "type": "string",
@@ -78,17 +78,6 @@ var schema = {
     }
   }
 }
-
-router.get('/',(req, res) => {
-
-  jsf.resolve(schema).then(sample => {
-    logger.debug(util.inspect(sample,
-      {showHidden: false, depth: null}));
-  });
-
-});
-
-module.exports = router;
 /*
   Functions in a127 controllers used for operations should take two parameters:
 
@@ -111,15 +100,12 @@ function getEvent(req, res) {
     {
       "id": '' + faker.random.number(),
       "date": date,
-      "band": "XYZ",
-      "image": "fest.jpg",
-      "time": "2021-04-14",
-      "place": "Minsk, Independence av. 152",
-      "songs": [{
-        "id": "12",
-        "title": title,
-        "time": 120
-      }],
+      "image": '' + faker.image.abstract,
+      "time": '' + faker.time.recent,
+      "theme": '' + faker.lorem.word,
+      "cost": '' + faker.datatype.number,
+      "name": '' + faker.lorem.sentence,
+      "text": '' + faker.lorem.text,
     }
   ]);
 }
